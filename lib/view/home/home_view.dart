@@ -1,9 +1,5 @@
-// TODO Implement this library.
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:permission_handler/permission_handler.dart';
-// import 'package:geolocator/geolocator.dart';
-// import 'package:geolocator_platform_interface/geolocator_platform_interface.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -22,6 +18,14 @@ class _HomeViewState extends State<HomeView> {
     // TODO: implement dispose
     super.dispose();
     controller.dispose();
+  }
+
+  bool isOnline = false;
+
+  void toggleStatus() {
+    setState(() {
+      isOnline = !isOnline;
+    });
   }
 
   //   Future<void> _goToLiveLocation() async {
@@ -49,6 +53,17 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: Stack(
         children: [
+          SizedBox(
+            height: 200,
+            child: Center(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage(
+                  'assets/image/sm_profile.jpg',
+                ), // or use NetworkImage
+              ),
+            ),
+          ),
           OSMFlutter(
             controller: MapController(
               initPosition: GeoPoint(
@@ -99,42 +114,41 @@ class _HomeViewState extends State<HomeView> {
                     // Take full width
                     child: Column(
                       children: [
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            // Placeholder for map or background
-                            Container(
-                              height: 200,
-                              width: double.infinity,
-                              color: Colors.grey[300],
-                            ),
-                            // GO button
-                            Container(
-                              width: 80,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.green,
-                                shape: BoxShape.circle,
+                        Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                isOnline ? "Online" : "Offline",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: isOnline ? Colors.green : Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              child: Center(
-                                child: Text(
-                                  "GO",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                              const SizedBox(height: 20),
+                              GestureDetector(
+                                onTap: toggleStatus,
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    color: isOnline ? Colors.red : Colors.green,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "GO",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          "You're offline",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            ],
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -155,15 +169,15 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         const SizedBox(height: 16),
                         // Your existing button
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Your function here
-                            },
-                            child: const Text("Set Position"),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(16.0),
+                        //   child: ElevatedButton(
+                        //     onPressed: () {
+                        //       // Your function here
+                        //     },
+                        //     child: const Text("Set Position"),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
