@@ -53,17 +53,17 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox(
-            height: 200,
-            child: Center(
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage(
-                  'assets/image/sm_profile.jpg',
-                ), // or use NetworkImage
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 50,
+          //   left:
+          //       MediaQuery.of(context).size.width / 2 -
+          //       60, // Center horizontally
+          //   child: CircleAvatar(
+          //     radius: 60,
+          //     backgroundImage: AssetImage('assets/img/sm_profile.png'),
+          //     backgroundColor: Colors.grey[200], // fallback background
+          //   ),
+          // ),
           OSMFlutter(
             controller: MapController(
               initPosition: GeoPoint(
@@ -105,6 +105,25 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Positioned(
+                  top: 50,
+                  left:
+                      MediaQuery.of(context).size.width / 5 -
+                      0.5, // Center horizontally
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage('assets/img/sm_profile.png'),
+                    backgroundColor: Colors.grey[200], // fallback background
+                  ),
+                ),
+              ],
+            ),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -114,6 +133,7 @@ class _HomeViewState extends State<HomeView> {
                     // Take full width
                     child: Column(
                       children: [
+                        Divider(),
                         Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
