@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taxi_app/view/login/add_vehicle.dart' show AddVehicle;
+import 'package:taxi_app/view/login/change_language_view.dart'
+    show ChangeLanguageView;
 // import 'package:taxi_app/view/login/change_language_view.dart';
 
 import '../../common/color_extention.dart';
@@ -27,9 +29,8 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void loadNextScreen() {
-    // context.push(const ChangeLanguageView());
-     context.push( AddVehicle());
-    
+    context.push(const ChangeLanguageView());
+    // context.push(AddVehicle());
   }
 
   @override

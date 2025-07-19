@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_app/view/login/add_vehicle.dart';
 
 class PersonalDocumentScreen extends StatelessWidget {
   @override
@@ -109,9 +110,17 @@ class PersonalDocumentScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
-                  'NEXT',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddVehicle()),
+                    );
+                  },
+                  child: Text(
+                    'NEXT',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
               ),
             ),

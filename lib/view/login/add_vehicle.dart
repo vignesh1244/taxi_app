@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:taxi_app/view/home/home_view.dart';
+import 'package:taxi_app/view/home/tips.dart';
 // import 'package:taxi_app/view/login/personal_document.dart';
 
 class AddVehicle extends StatefulWidget {
@@ -247,7 +248,7 @@ class _AddVehicleState extends State<AddVehicle> {
 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeView()),
+                      MaterialPageRoute(builder: (context) => TipRequest()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
