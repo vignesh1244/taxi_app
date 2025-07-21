@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:taxi_app/common_widget/commonn_extention.dart';
 import 'dart:async';
 
 import 'package:taxi_app/view/login/bank_detail_view.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   final String phoneNumber;
-  OTPVerificationScreen({required this.phoneNumber});
+  final String code;
+  final String number;
+  
+  OTPVerificationScreen({required this.phoneNumber,required this.code, required this.number});
 
   @override
   _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
@@ -21,6 +26,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   void initState() {
     super.initState();
     startTimer();
+    onSendSms();
   }
 
   void startTimer() {
@@ -51,6 +57,37 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   void verifyOTP() {
     print("Entered OTP: ${otpController.text}");
     // Add your verification logic here
+  }
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+  String verificationId = '';
+  String vId = "";
+  var code = '';
+
+  onSendSms() async {
+    try {
+      await auth.verifyPhoneNumber(
+        phoneNumber: "${widget.code} ${widget.number}",
+        timeout: const Duration(seconds: 5),
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          // ANDROID ONLY!
+
+          // Sign the user in (or link) with the auto-generated credential
+          await auth.signInWithCredential(credential);
+        },
+        verificationFailed: (error) {
+          mdShowAlert("Fail", error.toString(), () {});
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          vId = verificationId;
+        },
+        codeAutoRetrievalTimeout: (verificationId) {
+          vId = verificationId;
+        },
+      );
+    } catch (e) {
+      mdShowAlert("Fail", e.toString(), () {});
+    }
   }
 
   @override

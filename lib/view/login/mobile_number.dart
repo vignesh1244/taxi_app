@@ -105,18 +105,37 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                     ),
                   ),
                   onPressed: () {
-                    String fullNumber =
-                        '$selectedCountryCode${phoneController.text}';
-                    print('Phone: $fullNumber');
+                    String code = selectedCountryCode;
+                    String number = phoneController.text;
+                    String fullNumber = '$code$number';
 
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            OTPVerificationScreen(phoneNumber: fullNumber),
+                        builder: (context) => OTPVerificationScreen(
+                          phoneNumber: fullNumber,
+                          code: code,
+                          number: number,
+                        ),
                       ),
                     );
                   },
+                  // onPressed: () {
+                  //   String fullNumber =
+                  //       '$selectedCountryCode${phoneController.text}';
+                  //   print('Phone: $fullNumber');
+
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => OTPVerificationScreen(
+                  //         phoneNumber: fullNumber,
+                  //         code: '',
+                  //         number: '',
+                  //       ),
+                  //     ),
+                  //   );
+                  // },
                   child: Text(
                     'CONTINUE',
                     style: TextStyle(fontSize: 16, color: Colors.white),

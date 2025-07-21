@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:taxi_app/view/login/add_vehicle.dart' show AddVehicle;
-import 'package:taxi_app/view/login/change_language_view.dart'
-    show ChangeLanguageView;
-// import 'package:taxi_app/view/login/change_language_view.dart';
-
-import '../../common/color_extention.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:taxi_app/view/login/mobile_number.dart';
+// import 'package:taxi_app/view/login/mobile_number_view.dart'; // Update this if needed
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -17,37 +13,23 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    // TODO: implement initState
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
     super.initState();
-    load();
+    _navigateToNext();
   }
 
-  void load() async {
+  void _navigateToNext() async {
+    // Just a delay to simulate splash, adjust as needed
     await Future.delayed(const Duration(seconds: 2));
-    loadNextScreen();
-  }
 
-  void loadNextScreen() {
-    context.push(const ChangeLanguageView());
-    // context.push(AddVehicle());
+    // Then navigate safely
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MobileNumberScreen()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: TColor.bg,
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: context.width,
-            height: context.height,
-            color: TColor.primary,
-          ),
-          Image.asset("assets/img/app_logo.png", width: context.width * 0.25),
-        ],
-      ),
-    );
+    return const Scaffold(body: Center(child: Text("Taxi App Loading...")));
   }
 }
